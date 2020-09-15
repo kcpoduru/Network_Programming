@@ -2,13 +2,17 @@
 
 
 
-static void parseIpToArr(char * ipAddr , unsigned char *ipArr)
+static void parseIpToArr(char * ipAddress , unsigned char *ipArr)
 {
     unsigned char lenOfIp = 0;
     unsigned char currentLoc = 0;
     char * locOfSubString = NULL;
-    check(strlen(ipAddr) < 17 | ipArr != NULL , "wrong ipAddr Length");
-    lenOfIp = strlen(ipAddr) + 1;
+    char * ipAddr;
+    check(strlen(ipAddress) < 17 | ipAddress != NULL , "wrong ipAddr Length");
+    lenOfIp = strlen(ipAddress) + 1;
+    ipAddr = (char *)malloc(lenOfIp);
+    checkMem(ipArr!=NULL);
+    strcpy(ipAddr, (const char *)ipAddress);
     locOfSubString = ipAddr;
     for(int i = 0; i < lenOfIp; i++)
     {
@@ -20,6 +24,8 @@ static void parseIpToArr(char * ipAddr , unsigned char *ipArr)
           locOfSubString = &ipAddr[i+1];
       }
     }
+    free(ipAddr);
+    return;
 error:
   return;
 }
